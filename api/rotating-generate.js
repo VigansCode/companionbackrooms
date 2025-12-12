@@ -106,7 +106,7 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
           'X-Title': 'X Backrooms'
         },
         body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4-20250514',
+          model: 'anthropic/claude-sonnet-4.5',
           messages: [
             {
               role: 'user',
