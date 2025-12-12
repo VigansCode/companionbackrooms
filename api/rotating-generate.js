@@ -1,4 +1,4 @@
-// /api/rotating-generate.js - Simple conversation with proper speaker rotation
+// /api/rotating-generate.js - Simple conversation with proper speaker rotation (OpenRouter version)
 
 const entities = ['kanye', 'kevin', 'kirk'];
 const entityData = {
@@ -60,9 +60,9 @@ export default async function handler(req, res) {
       }
 
       console.log('Checking for API key...');
-      if (!process.env.ANTHROPIC_API_KEY) {
-        console.error('❌ Missing ANTHROPIC_API_KEY');
-        throw new Error('Missing ANTHROPIC_API_KEY environment variable');
+      if (!process.env.OPENROUTER_API_KEY) {
+        console.error('❌ Missing OPENROUTER_API_KEY');
+        throw new Error('Missing OPENROUTER_API_KEY environment variable');
       }
       console.log('✅ API key found');
       
@@ -95,26 +95,39 @@ ${context || 'This is the beginning of the conversation.'}
 
 Continue the conversation naturally as ${entity.name}. ${context ? 'Reference what others have said if relevant.' : 'Start the conversation.'} Be authentic to your personality and stay in character.`;
 
-      console.log('Importing Anthropic SDK...');
-      const { Anthropic } = await import('@anthropic-ai/sdk');
-      console.log('✅ SDK imported');
+      console.log('Making API call to OpenRouter...');
       
-      console.log('Creating Anthropic client...');
-      const anthropic = new Anthropic({
-        apiKey: process.env.ANTHROPIC_API_KEY,
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://xbackrooms.com',
+          'X-Title': 'X Backrooms'
+        },
+        body: JSON.stringify({
+          model: 'anthropic/claude-sonnet-4-20250514',
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+          max_tokens: 300,
+          temperature: 0.8
+        })
       });
-      console.log('✅ Client created');
 
-      console.log('Making API call to Anthropic...');
-      const message = await anthropic.messages.create({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 300,
-        temperature: 0.8,
-        messages: [{ role: 'user', content: prompt }]
-      });
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('OpenRouter API error:', errorData);
+        throw new Error(`OpenRouter API failed: ${response.status} - ${errorData}`);
+      }
+
+      const data = await response.json();
       console.log('✅ API call successful');
 
-      const content = message.content[0].text;
+      const content = data.choices[0].message.content;
       console.log('Generated content:', content.substring(0, 100) + '...');
       
       // Add message to conversation
