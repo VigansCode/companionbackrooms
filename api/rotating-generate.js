@@ -97,31 +97,59 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
 
       console.log('Making API call to OpenRouter...');
       
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://xbackrooms.com',
-          'X-Title': 'X Backrooms'
-        },
-        body: JSON.stringify({
-          model: 'anthropic/claude-sonnet-4.5',
-          messages: [
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          max_tokens: 300,
-          temperature: 0.8
-        })
-      });
+      // Try models in order until one works
+      const models = [
+        'anthropic/claude-sonnet-4.5',
+        'anthropic/claude-3.5-sonnet',
+        'openai/gpt-4o',
+        'deepseek/deepseek-chat'
+      ];
+      
+      let response = null;
+      let lastError = null;
+      
+      for (const model of models) {
+        try {
+          console.log(`Trying model: ${model}...`);
+          
+          response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+              'Content-Type': 'application/json',
+              'HTTP-Referer': 'https://xbackrooms.com',
+              'X-Title': 'X Backrooms'
+            },
+            body: JSON.stringify({
+              model: model,
+              messages: [
+                {
+                  role: 'user',
+                  content: prompt
+                }
+              ],
+              max_tokens: 300,
+              temperature: 0.8
+            })
+          });
 
-      if (!response.ok) {
-        const errorData = await response.text();
-        console.error('OpenRouter API error:', errorData);
-        throw new Error(`OpenRouter API failed: ${response.status} - ${errorData}`);
+          if (response.ok) {
+            console.log(`✅ ${model} succeeded!`);
+            break;
+          } else {
+            const errorData = await response.text();
+            console.log(`❌ ${model} failed: ${errorData}`);
+            lastError = errorData;
+          }
+        } catch (error) {
+          console.log(`❌ ${model} error: ${error.message}`);
+          lastError = error.message;
+        }
+      }
+
+      if (!response || !response.ok) {
+        console.error('All models failed. Last error:', lastError);
+        throw new Error(`All OpenRouter models failed. Last error: ${lastError}`);
       }
 
       const data = await response.json();
