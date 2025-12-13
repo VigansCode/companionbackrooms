@@ -102,7 +102,9 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
       
       // Try models in order until one works
       const models = [
-        'anthropic/claude-3.5-sonnet',
+        'anthropic/claude-3.5-sonnet:beta',     // Try beta version first
+        'anthropic/claude-3-5-sonnet-20241022', // Try with date
+        'anthropic/claude-3-5-sonnet',          // Try with different hyphen format
         'openai/gpt-4o',
         'deepseek/deepseek-chat'
       ];
