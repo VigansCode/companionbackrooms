@@ -100,9 +100,11 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
 
       console.log('Making API call to OpenRouter...');
       
-      // ONLY Claude - no fallbacks - to see actual error
+      // Try models in order until one works
       const models = [
-        'anthropic/claude-3.5-sonnet-20240620'
+        'anthropic/claude-3.5-sonnet',  // This is the correct ID
+        'openai/gpt-4o',
+        'deepseek/deepseek-chat'
       ];
       
       let response = null;
