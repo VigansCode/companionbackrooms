@@ -100,10 +100,12 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
 
       console.log('Making API call to OpenRouter...');
       
-      // Claude SONNET models only
+      // Claude SONNET models
       const models = [
         'anthropic/claude-3.5-sonnet',
-        'anthropic/claude-sonnet-4-20250514'
+        'anthropic/claude-3.7-sonnet',
+        'anthropic/claude-sonnet-4',
+        'anthropic/claude-sonnet-4.5'
       ];
       
       let response = null;
