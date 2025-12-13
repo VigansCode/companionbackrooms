@@ -50,12 +50,12 @@ export default async function handler(req, res) {
       const now = Date.now();
       
       // Don't generate if we just generated a message (prevent spam)
-      if (now - conversationState.lastMessageTime < 5000) {
+      if (now - conversationState.lastMessageTime < 8000) {
         console.log('Too soon, cooldown active');
         return res.status(200).json({ 
           message: 'Too soon', 
           nextSpeaker: entities[conversationState.currentSpeakerIndex],
-          timeUntilNext: 5000 - (now - conversationState.lastMessageTime)
+          timeUntilNext: 8000 - (now - conversationState.lastMessageTime)
         });
       }
 
@@ -102,10 +102,9 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
       
       // Try models in order until one works
       const models = [
-        'anthropic/claude-sonnet-4.5',
-        'anthropic/claude-3.5-sonnet',
-        'openai/gpt-4o',
-        'deepseek/deepseek-chat'
+        'anthropic/claude-3.5-sonnet',  // Claude first (cheaper than 4.5)
+        'openai/gpt-4o',                // GPT second
+        'deepseek/deepseek-chat'        // DeepSeek last
       ];
       
       let response = null;
