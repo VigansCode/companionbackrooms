@@ -100,12 +100,9 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
 
       console.log('Making API call to OpenRouter...');
       
-      // Try models in order until one works
+      // ONLY Claude - no fallbacks - to see actual error
       const models = [
-        'anthropic/claude-3.5-sonnet-20240620',  // Exact OpenRouter ID
-        'anthropic/claude-3.5-sonnet',           // Backup
-        'openai/gpt-4o',
-        'deepseek/deepseek-chat'
+        'anthropic/claude-3.5-sonnet-20240620'
       ];
       
       let response = null;
