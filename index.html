@@ -892,7 +892,7 @@
                 
                 // Update stats for historical messages
                 if (message.type === 'entity') {
-                    const entityKey = message.speaker.toLowerCase();
+                    const entityKey = message.speaker.toLowerCase().replace(/\s+/g, '');
                     if (entityStats[entityKey]) {
                         updateEntityStats(entityKey, message);
                     }
@@ -903,13 +903,13 @@
             if (messages.length > 0) {
                 const lastMessage = messages[messages.length - 1];
                 if (lastMessage.type === 'entity') {
-                    const entityKey = lastMessage.speaker.toLowerCase();
+                    const entityKey = lastMessage.speaker.toLowerCase().replace(/\s+/g, '');
                     updatePortraitGlow(entityKey, false);
                     console.log(`🎨 Last speaker was ${lastMessage.speaker}, highlighting their portrait`);
                 }
             }
             
-            scrollToBottom();
+            scrollToBottom(true); // Force scroll on initial load
         }
         
         function addMessageToUI(message) {
@@ -926,7 +926,7 @@
                     <div class="message-content">${message.content}</div>
                 `;
             } else {
-                const entityKey = message.speaker.toLowerCase();
+                const entityKey = message.speaker.toLowerCase().replace(/\s+/g, '');
                 const entity = entities[entityKey];
                 if (entity) {
                     messageDiv.className = `message ${entityKey}`;
@@ -1014,6 +1014,7 @@
                             if (generateResponse.ok && generateData.message) {
                                 console.log('✅ First message generated:', generateData.message);
                                 addMessageToUI(generateData.message);
+                                scrollToBottom(true); // Force scroll for first message
                             }
                         }
                         
@@ -1027,7 +1028,7 @@
                     console.error('❌ Error testing APIs:', error);
                     showConnectionError();
                 }
-            }, 3000);
+            }, 500);
         }
         
         function startContinuousGeneration() {
@@ -1042,6 +1043,7 @@
                     if (response.ok && data.message) {
                         console.log(`✅ New message from ${data.message.speaker}:`, data.message.content.substring(0, 50) + '...');
                         addMessageToUI(data.message);
+                        scrollToBottom(); // Smart scroll - only if user is at bottom
                         
                     } else {
                         console.log('⏳ Too soon for next message or error:', data);
@@ -1049,7 +1051,7 @@
                 } catch (error) {
                     console.error('❌ Error generating message:', error);
                 }
-            }, 15000);
+            }, 8000); // Try every 8 seconds
             
             setInterval(async () => {
                 try {
@@ -1069,9 +1071,21 @@
             }, 5000);
         }
         
-        function scrollToBottom() {
+        function scrollToBottom(force = false) {
             const messagesArea = document.getElementById('messagesArea');
-            messagesArea.scrollTop = messagesArea.scrollHeight;
+            
+            if (force) {
+                // Force scroll on initial load
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+                return;
+            }
+            
+            // Only auto-scroll if user is already near the bottom (within 100px)
+            const isNearBottom = messagesArea.scrollHeight - messagesArea.scrollTop - messagesArea.clientHeight < 100;
+            
+            if (isNearBottom) {
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+            }
         }
         
         window.showLiveFeed = function() {};
