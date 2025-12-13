@@ -102,9 +102,9 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
       
       // Try models in order until one works
       const models = [
-        'anthropic/claude-3.5-sonnet-20241022',  // Claude first - CORRECT model ID
-        'openai/gpt-4o',                         // GPT second
-        'deepseek/deepseek-chat'                 // DeepSeek last
+        'anthropic/claude-3.5-sonnet',
+        'openai/gpt-4o',
+        'deepseek/deepseek-chat'
       ];
       
       let response = null;
