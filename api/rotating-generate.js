@@ -50,12 +50,12 @@ export default async function handler(req, res) {
       const now = Date.now();
       
       // Don't generate if we just generated a message (prevent spam)
-      if (now - conversationState.lastMessageTime < 10000) {
+      if (now - conversationState.lastMessageTime < 5000) {
         console.log('Too soon, cooldown active');
         return res.status(200).json({ 
           message: 'Too soon', 
           nextSpeaker: entities[conversationState.currentSpeakerIndex],
-          timeUntilNext: 10000 - (now - conversationState.lastMessageTime)
+          timeUntilNext: 5000 - (now - conversationState.lastMessageTime)
         });
       }
 
