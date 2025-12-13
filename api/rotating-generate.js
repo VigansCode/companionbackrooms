@@ -140,7 +140,8 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
             break;
           } else {
             const errorData = await response.text();
-            console.log(`❌ ${model} failed: ${errorData}`);
+            console.error(`❌ ${model} FAILED - Status: ${response.status}`);
+            console.error(`❌ Error details: ${errorData}`);
             lastError = errorData;
           }
         } catch (error) {
