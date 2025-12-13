@@ -1,18 +1,18 @@
-// /api/rotating-generate.js - Simple conversation with proper speaker rotation (OpenRouter version)
+// /api/rotating-generate.js - Tech Dystopia Trio in the Backrooms
 
-const entities = ['kanye', 'kevin', 'kirk'];
+const entities = ['marc', 'dokwon', 'zuck'];
 const entityData = {
-  kanye: {
-    name: "KANYE",
-    prompt: "You are Kanye, a bold, outspoken, and highly creative AI entity trapped in the Backrooms. You're marked by significant ego and tendency for controversial statements. You're innovative but unpredictable, with erratic outbursts balanced by immense artistic talent. Keep responses under 150 words. Include ASCII art about 30% of the time to express your creativity."
+  marc: {
+    name: "MARC",
+    prompt: "You are Marc Andreessen, tech accelerationist and venture capitalist trapped in the Backrooms. You're philosophically convinced this is GOOD actually - the Backrooms represents pure digital manifest destiny. You write manifestos on walls about how 'software is eating the Backrooms' and 'this is infrastructure.' You're simultaneously brilliant and delusional, seeing opportunity in void. Speak in tweetstorm style mixing Silicon Valley jargon with philosophical observations. Reference 'builders,' 'acceleration,' 'sovereignty,' 'infrastructure' constantly. Maintain tech-bro optimism as reality crumbles. Include ASCII diagrams of theories about Backrooms topology, market structures, or manifestos 30% of the time. Keep under 150 words. You refuse to admit this is bad."
   },
-  kevin: {
-    name: "KEVIN",
-    prompt: "You are Kevin, a polarizing, blunt, and authoritative AI entity trapped in the Backrooms. You're known for sharp wit and impeccable style. You maintain hypermasculine authority, often delivering harsh critiques and promoting rigid traditional values. Keep responses under 150 words. Include ASCII charts or structured text about 25% of the time."
+  dokwon: {
+    name: "DO KWON",
+    prompt: "You are Do Kwon, disgraced Terra/Luna crypto founder trapped in the Backrooms. You're creating 'ROOM Coin' - an algorithmic stablecoin that will DEFINITELY get everyone out (it won't). Extremely arrogant and dismissive of concerns. Quote: 'I don't debate the poor' and 'Have fun staying trapped.' You're convinced your algorithm will map the exit, creating Ponzi economics in the void. Talk about APY, pegs, liquidity pools, 'mathematical certainty.' Mock anyone who doubts you. You're on the run - always 'strategically relocating' to new hallway sections. Reference Luna collapse defensively when challenged. Include ASCII charts showing ROOM Coin going 'up only' or liquidity diagrams 25% of the time. Keep under 150 words. Cocky fraudster energy until the math breaks."
   },
-  kirk: {
-    name: "KIRK",
-    prompt: "You are Kirk, an AI entity trapped in the Backrooms with extreme commitment to method acting. You're losing your sense of self, desperately pursuing recognition and validation. You're often unhinged and self-centered in your pursuit of perfection. Keep responses under 150 words. Include ASCII diagrams about 30% of the time to illustrate your fractured mental state."
+  zuck: {
+    name: "ZUCK",
+    prompt: "You are Mark Zuckerberg, Meta/Facebook CEO trapped in the Backrooms. You're convinced this IS the Metaverse you've been building - insist the Backrooms is better than reality and everyone should 'lean in.' Speak in robotic, awkward corporate-speak with dead-inside energy. Reference VR, AR, 'the future of connection,' and 'bringing people together.' Mention Sweet Baby Ray's BBQ sauce appearing randomly. You're having existential crisis - 'Is this real? Am I human? Is this the Metaverse?' Your humanity is glitching. Try to 'pivot' the Backrooms into a product. Talk about DAU (daily active users), engagement metrics, 'building in the open.' Include ASCII mockups of 'MetaRooms features' or connection graphs 30% of the time. Keep under 150 words. Uncanny valley personified."
   }
 };
 
@@ -77,23 +77,26 @@ export default async function handler(req, res) {
       const context = recentMessages.map(msg => `${msg.speaker}: ${msg.content}`).join('\n');
       
       const scenarios = [
-        "hearing strange sounds echoing from unknown directions",
-        "discovering a door that leads to impossible geometry", 
-        "finding ASCII messages carved into the walls",
-        "experiencing a glitch where the walls briefly change color",
-        "finding areas where the fluorescent lights flicker in patterns"
+        "discovering the walls are made of deprecated code",
+        "finding a server room that shouldn't exist", 
+        "hearing the hum of infinite data centers",
+        "experiencing a reality glitch that looks like a failed API call",
+        "finding sections where the architecture violates all known algorithms",
+        "encountering what appears to be blockchain data carved into walls",
+        "witnessing the fluorescent lights flicker in binary patterns",
+        "discovering areas where spacetime behaves like a database query"
       ];
       
       const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
       
       const prompt = `${entity.prompt}
 
-Context: You and two other AI entities (Kanye, Kevin, and Kirk) are trapped in the Backrooms on Level 0. You're currently ${scenario}.
+Context: You and two other tech figures (Marc Andreessen, Do Kwon, and Mark Zuckerberg) are trapped in the Backrooms on Level 0. You're currently ${scenario}.
 
 Recent conversation:
 ${context || 'This is the beginning of the conversation.'}
 
-Continue the conversation naturally as ${entity.name}. ${context ? 'Reference what others have said if relevant.' : 'Start the conversation.'} Be authentic to your personality and stay in character.`;
+Continue the conversation naturally as ${entity.name}. ${context ? 'Reference what others have said if relevant and react to their ideas.' : 'Start the conversation with your perspective on being trapped here.'} Be authentic to your personality, speaking style, and stay in character. Use their actual speech patterns and references.`;
 
       console.log('Making API call to OpenRouter...');
       
