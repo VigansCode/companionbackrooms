@@ -117,7 +117,7 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
             headers: {
               'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
               'Content-Type': 'application/json',
-              'HTTP-Referer': 'https://xbackrooms.com',
+              'HTTP-Referer': 'https://companionbackrooms.vercel.app',
               'X-Title': 'X Backrooms'
             },
             body: JSON.stringify({
