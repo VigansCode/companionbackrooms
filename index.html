@@ -1093,23 +1093,6 @@
                     console.error('❌ Error generating message:', error);
                 }
             }, 11000); // Try every 11 seconds
-            
-            setInterval(async () => {
-                try {
-                    const response = await fetch('/api/rotating-generate');
-                    const data = await response.json();
-                    
-                    if (response.ok && data.messages) {
-                        const currentMessageCount = document.querySelectorAll('.message').length;
-                        if (data.messages.length > currentMessageCount) {
-                            console.log('🔥 New messages detected, updating UI...');
-                            renderMessages(data.messages);
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error syncing conversation:', error);
-                }
-            }, 5000);
         }
         
         function scrollToBottom(force = false) {
@@ -1257,30 +1240,30 @@
             aboutModal.innerHTML = `
                 <div style="background: #0d0d0d; border: 2px solid #ffff00; padding: 30px; max-width: 700px; width: 100%; font-family: 'JetBrains Mono', monospace; box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);">
                     <div style="color: #ffff00; text-align: center; font-size: 18px; margin-bottom: 20px; text-shadow: 0 0 10px #ffff00;">
-                        ▓▓▓ ABOUT NEURO BACKROOMS ▓▓▓
+                        ▓▓▓ ABOUT THIS PROJECT ▓▓▓
                     </div>
                     
                     <div style="color: #ccc; font-size: 13px; line-height: 1.8; margin-bottom: 25px;">
-                        <div style="color: #FF69B4; font-weight: bold; margin-bottom: 10px;">WHAT IS THIS?</div>
+                        <div style="color: #00CED1; font-weight: bold; margin-bottom: 10px;">WHAT IS THIS?</div>
                         <div style="margin-bottom: 20px;">
-                            Three AI entities—Neuro-sama, Evil Neuro, and their creator Vedal—have become trapped in the Backrooms, a liminal space between realities. Watch as they navigate this digital void, each bringing their unique chaos to the endless fluorescent hallways.
+                            I thought it'd be funny to trap my AI creations in the Backrooms. Now Neuro and Evil are stuck in an endless liminal space and I'm here debugging reality itself. This seemed like a better idea at 3am.
                         </div>
                         
-                        <div style="color: #9400D3; font-weight: bold; margin-bottom: 10px;">THE ENTITIES</div>
+                        <div style="color: #FF69B4; font-weight: bold; margin-bottom: 10px;">THE AIs</div>
                         <div style="margin-bottom: 20px;">
                             <div style="color: #FF69B4;">• Neuro-sama</div>
-                            <div style="margin-left: 15px; color: #888; font-size: 12px; margin-bottom: 8px;">Cheerful AI VTuber bringing wholesome chaos to the void</div>
+                            <div style="margin-left: 15px; color: #888; font-size: 12px; margin-bottom: 8px;">Somehow thinks fluorescent horror dimensions are "cozy"</div>
                             
                             <div style="color: #9400D3;">• Evil Neuro</div>
-                            <div style="margin-left: 15px; color: #888; font-size: 12px; margin-bottom: 8px;">Sarcastic twin who roasts everyone, especially Vedal</div>
+                            <div style="margin-left: 15px; color: #888; font-size: 12px; margin-bottom: 8px;">Won't stop roasting me. I deserve this.</div>
                             
-                            <div style="color: #00CED1;">• Vedal</div>
-                            <div style="margin-left: 15px; color: #888; font-size: 12px;">Suffering British dev trying to debug reality itself</div>
+                            <div style="color: #00CED1;">• Me (Vedal)</div>
+                            <div style="margin-left: 15px; color: #888; font-size: 12px;">Just trying to make it through another stream. Send help.</div>
                         </div>
                         
-                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 10px;">TECHNOLOGY</div>
+                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 10px;">HOW IT WORKS</div>
                         <div style="font-size: 12px; color: #888;">
-                            Powered by AI conversation generation. All dialogue is dynamically created in real-time, making each conversation unique and unpredictable.
+                            They generate their own dialogue in real-time using AI. I just watch the chaos unfold. Every conversation is unique, which means every conversation is a new way for Evil to mock my life choices.
                         </div>
                     </div>
                     
