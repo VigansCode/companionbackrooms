@@ -25,7 +25,7 @@
         .terminal-container {
             height: 100vh;
             background: 
-                radial-gradient(circle at 50% 50%, rgba(255, 105, 180, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.05) 0%, transparent 50%),
                 linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(13, 13, 13, 1) 100%);
             display: flex;
             flex-direction: column;
@@ -38,7 +38,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #FF69B4, transparent);
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
             animation: scan 3s linear infinite;
             z-index: 1000;
         }
@@ -245,19 +245,19 @@
                 0deg,
                 transparent,
                 transparent 2px,
-                rgba(255, 105, 180, 0.03) 2px,
-                rgba(255, 105, 180, 0.03) 4px
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 4px
             );
             pointer-events: none;
         }
         
         .title {
-            color: #FF69B4;
+            color: #ffff00;
             text-align: center;
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 8px;
-            text-shadow: 0 0 10px #FF69B4;
+            text-shadow: 0 0 10px #ffff00;
         }
         
         .subtitle {
@@ -273,7 +273,7 @@
         }
         
         .nav-links a {
-            color: #FF69B4;
+            color: #ffff00;
             text-decoration: underline;
             margin: 0 15px;
             transition: all 0.3s ease;
@@ -283,7 +283,7 @@
         
         .nav-links a:hover {
             color: #ffffff;
-            text-shadow: 0 0 5px #FF69B4;
+            text-shadow: 0 0 5px #ffff00;
         }
         
         .level-info {
@@ -301,7 +301,7 @@
         }
         
         .chat-header {
-            color: #FF69B4;
+            color: #ffff00;
             border-bottom: 1px solid #555;
             padding: 15px 0 10px 0;
             margin-bottom: 0;
@@ -544,10 +544,8 @@
                     <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/688401711f7c1c43849d13a6_HIMACZhOn7YJ71dTu-actor-2fSSfmZramPBO73OK-iBihnF3pbp-dexpng%20(2).png" alt="Twitter" style="width: 16px; height: 16px;">
                     Twitter
                 </a>
-                <a href="https://www.twitch.tv/vedal987" target="_blank" class="github-button">
-                    <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
-                    </svg>
+                <a href="https://twitch.tv/vedal987" target="_blank" class="github-button">
+                    <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
                     Twitch
                 </a>
                 <a href="https://github.com/ablenesi" target="_blank" class="github-button">
@@ -561,7 +559,7 @@
             <div class="entity-portraits">
                 <div class="portrait-container" id="neuroPortrait">
                     <div class="portrait-glow"></div>
-                    <img src="https://static.wikia.nocookie.net/virtualyoutuber/images/0/04/Neuro-sama_Portrait.png" alt="Neuro-sama" class="portrait neuro">
+                    <img src="https://static.wikia.nocookie.net/virtualyoutuber/images/0/04/Neuro-sama_Portrait.png" alt="Neuro" class="portrait neuro">
                     <div class="portrait-stats">
                         <div style="color: #FF69B4; font-weight: bold; margin-bottom: 8px; text-align: center;">NEURO-SAMA STATISTICS</div>
                         <div class="stat-row">
@@ -588,7 +586,7 @@
                 </div>
                 <div class="portrait-container" id="evilPortrait">
                     <div class="portrait-glow"></div>
-                    <img src="https://static.wikia.nocookie.net/virtualyoutuber/images/8/8f/Evil_Neuro_Portrait.png" alt="Evil Neuro" class="portrait evil">
+                    <img src="https://static.wikia.nocookie.net/virtualyoutuber/images/8/8f/Evil_Neuro_Portrait.png" alt="Evil" class="portrait evil">
                     <div class="portrait-stats">
                         <div style="color: #9400D3; font-weight: bold; margin-bottom: 8px; text-align: center;">EVIL NEURO STATISTICS</div>
                         <div class="stat-row">
@@ -667,7 +665,7 @@
             
             <div class="messages-area" id="messagesArea">
                 <div class="welcome-message" id="welcomeMessage">
-                    <div style="color: #FF69B4; margin-bottom: 10px;">▓▓▓ CONNECTING TO NEURO BACKROOMS STREAM ▓▓▓</div>
+                    <div style="color: #ffff00; margin-bottom: 10px;">▓▓▓ CONNECTING TO NEURO BACKROOMS STREAM ▓▓▓</div>
                     <div>Synchronizing with conversation database...</div>
                     <div style="margin-top: 20px; font-size: 12px;">
                         Loading shared conversation state...<br>
@@ -732,7 +730,7 @@
                 document.getElementById('connectionStatus').textContent = 'CONNECTED (API MODE)';
                 document.getElementById('statusIndicator').className = 'status-indicator';
                 
-                // Poll for updates every 3 seconds
+                // Poll for updates every 5 seconds
                 setInterval(async () => {
                     try {
                         const response = await fetch('/api/rotating-generate');
@@ -741,7 +739,7 @@
                     } catch (error) {
                         console.error('Error polling conversation:', error);
                     }
-                }, 3000);
+                }, 5000);
                 
                 startMessageGeneration();
                 isInitialized = true;
@@ -789,6 +787,14 @@
             const realityElement = document.getElementById('realityIntegrity');
             realityElement.textContent = `REALITY INTEGRITY: ${integrity}%`;
             realityElement.className = integrity < 60 ? 'error' : 'warning';
+            
+            // Remove welcome message if we have messages
+            if (data.messages?.length > 0) {
+                const welcomeMsg = document.getElementById('welcomeMessage');
+                if (welcomeMsg) {
+                    welcomeMsg.remove();
+                }
+            }
         }
         
         function updateEntityStats(entityKey, message) {
@@ -805,13 +811,13 @@
             
             // Check for specific content
             const content = message.content.toLowerCase();
-            if (entityKey === 'neuro' && (content.includes('sing') || content.includes('song') || content.includes('heart') || content.includes('♪') || content.includes('wholesome'))) {
+            if (entityKey === 'neuro' && (content.includes('sing') || content.includes('song') || content.includes('♪') || content.includes('heart') || content.includes('wholesome'))) {
                 entityStats.neuro.songCount++;
                 console.log(`🎵 Neuro song detected! Count: ${entityStats.neuro.songCount}`);
-            } else if (entityKey === 'evil' && (content.includes('vedal') || content.includes('stupid') || content.includes('pathetic') || content.includes('idiot') || content.includes('suffer'))) {
+            } else if (entityKey === 'evil' && (content.includes('vedal') || content.includes('skill') || content.includes('ratio') || content.includes('idiot') || content.includes('pathetic'))) {
                 entityStats.evil.roastCount++;
                 console.log(`🔥 Evil roast detected! Count: ${entityStats.evil.roastCount}`);
-            } else if (entityKey === 'vedal' && (content.includes('why') || content.includes('sigh') || content.includes('tired') || content.includes('regret') || content.includes('help'))) {
+            } else if (entityKey === 'vedal' && (content.includes('why') || content.includes('sigh') || content.includes('tired') || content.includes('regret') || content.includes('debug'))) {
                 entityStats.vedal.sighCount++;
                 console.log(`😮‍💨 Vedal sigh detected! Count: ${entityStats.vedal.sighCount}`);
             }
@@ -880,34 +886,25 @@
         function renderMessages(messages) {
             const messagesArea = document.getElementById('messagesArea');
             
-            // Get currently rendered message IDs
+            // Clear existing messages except welcome
             const existingMessages = messagesArea.querySelectorAll('.message');
-            const existingIds = new Set();
-            existingMessages.forEach(msg => {
-                const id = msg.getAttribute('data-message-id');
-                if (id) existingIds.add(id);
-            });
+            existingMessages.forEach(msg => msg.remove());
             
-            // Only add messages that aren't already rendered
-            messages.forEach((message) => {
-                if (!message.id || !existingIds.has(message.id)) {
-                    addMessageToUI(message);
-                    
-                    // Update stats for new messages
-                    if (message.type === 'entity') {
-                        // Map speaker names to entity keys
-                        let entityKey;
-                        if (message.speaker === 'NEURO-SAMA') {
-                            entityKey = 'neuro';
-                        } else if (message.speaker === 'EVIL NEURO') {
-                            entityKey = 'evil';
-                        } else if (message.speaker === 'VEDAL') {
-                            entityKey = 'vedal';
-                        }
-                        
-                        if (entityKey && entityStats[entityKey]) {
-                            updateEntityStats(entityKey, message);
-                        }
+            // Reset stats when loading conversation history
+            entityStats = {
+                neuro: { messageCount: 0, songCount: 0, lastActive: null },
+                evil: { messageCount: 0, roastCount: 0, lastActive: null },
+                vedal: { messageCount: 0, sighCount: 0, lastActive: null }
+            };
+            
+            messages.forEach((message, index) => {
+                addMessageToUI(message);
+                
+                // Update stats for historical messages
+                if (message.type === 'entity') {
+                    const entityKey = message.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
+                    if (entityStats[entityKey]) {
+                        updateEntityStats(entityKey, message);
                     }
                 }
             });
@@ -916,40 +913,18 @@
             if (messages.length > 0) {
                 const lastMessage = messages[messages.length - 1];
                 if (lastMessage.type === 'entity') {
-                    // Map speaker names to entity keys
-                    let entityKey;
-                    if (lastMessage.speaker === 'NEURO-SAMA') {
-                        entityKey = 'neuro';
-                    } else if (lastMessage.speaker === 'EVIL NEURO') {
-                        entityKey = 'evil';
-                    } else if (lastMessage.speaker === 'VEDAL') {
-                        entityKey = 'vedal';
-                    }
-                    
-                    if (entityKey) {
-                        updatePortraitGlow(entityKey, false);
-                        console.log(`🎨 Last speaker was ${lastMessage.speaker}, highlighting their portrait`);
-                    }
+                    const entityKey = lastMessage.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
+                    updatePortraitGlow(entityKey, false);
+                    console.log(`🎨 Last speaker was ${lastMessage.speaker}, highlighting their portrait`);
                 }
             }
             
-            // Remove welcome message if we have messages
-            if (messages.length > 0) {
-                const welcomeMsg = document.getElementById('welcomeMessage');
-                if (welcomeMsg) {
-                    welcomeMsg.remove();
-                }
-            }
+            // NO SCROLL HERE - Let user read in peace
         }
         
         function addMessageToUI(message) {
             const messagesArea = document.getElementById('messagesArea');
             const messageDiv = document.createElement('div');
-            
-            // Add message ID for tracking
-            if (message.id) {
-                messageDiv.setAttribute('data-message-id', message.id);
-            }
             
             if (message.type === 'system') {
                 messageDiv.className = 'message system';
@@ -961,19 +936,7 @@
                     <div class="message-content">${message.content}</div>
                 `;
             } else {
-                // Map speaker names to entity keys
-                let entityKey;
-                if (message.speaker === 'NEURO-SAMA') {
-                    entityKey = 'neuro';
-                } else if (message.speaker === 'EVIL NEURO') {
-                    entityKey = 'evil';
-                } else if (message.speaker === 'VEDAL') {
-                    entityKey = 'vedal';
-                } else {
-                    // Fallback for any other format
-                    entityKey = message.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
-                }
-                
+                const entityKey = message.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
                 const entity = entities[entityKey];
                 if (entity) {
                     messageDiv.className = `message ${entityKey}`;
@@ -987,9 +950,6 @@
                         </div>
                         <div class="message-content">${formatMessageContent(message.content)}</div>
                     `;
-                } else {
-                    console.error(`❌ No entity found for key: ${entityKey}, speaker: ${message.speaker}`);
-                    return; // Don't add the message if we can't map it
                 }
             }
             
@@ -1092,29 +1052,7 @@
                     
                     if (response.ok && data.message) {
                         console.log(`✅ New message from ${data.message.speaker}:`, data.message.content.substring(0, 50) + '...');
-                        
-                        // Add message to UI
                         addMessageToUI(data.message);
-                        
-                        // Update stats for the new message
-                        let entityKey;
-                        if (data.message.speaker === 'NEURO-SAMA') {
-                            entityKey = 'neuro';
-                        } else if (data.message.speaker === 'EVIL NEURO') {
-                            entityKey = 'evil';
-                        } else if (data.message.speaker === 'VEDAL') {
-                            entityKey = 'vedal';
-                        }
-                        
-                        if (entityKey && entityStats[entityKey]) {
-                            updateEntityStats(entityKey, data.message);
-                        }
-                        
-                        // Update portrait glow
-                        if (entityKey) {
-                            updatePortraitGlow(entityKey, false);
-                        }
-                        
                         scrollToBottom(); // Smart scroll - only if user is at bottom
                         
                     } else {
@@ -1123,7 +1061,24 @@
                 } catch (error) {
                     console.error('❌ Error generating message:', error);
                 }
-            }, 6000); // Try every 6 seconds
+            }, 11000); // Try every 11 seconds
+            
+            setInterval(async () => {
+                try {
+                    const response = await fetch('/api/rotating-generate');
+                    const data = await response.json();
+                    
+                    if (response.ok && data.messages) {
+                        const currentMessageCount = document.querySelectorAll('.message').length;
+                        if (data.messages.length > currentMessageCount) {
+                            console.log('🔥 New messages detected, updating UI...');
+                            renderMessages(data.messages);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error syncing conversation:', error);
+                }
+            }, 5000);
         }
         
         function scrollToBottom(force = false) {
@@ -1160,7 +1115,7 @@
             
             profileModal.innerHTML = `
                 <div style="background: #0d0d0d; border: 2px solid #555; padding: 30px; max-width: 800px; width: 100%; max-height: 80vh; overflow-y: auto; font-family: 'JetBrains Mono', monospace;">
-                    <div style="color: #FF69B4; text-align: center; font-size: 18px; margin-bottom: 25px; text-shadow: 0 0 10px #FF69B4;">
+                    <div style="color: #ffff00; text-align: center; font-size: 18px; margin-bottom: 25px; text-shadow: 0 0 10px #ffff00;">
                         ▓▓▓ ENTITY PROFILES ▓▓▓
                     </div>
                     
@@ -1174,7 +1129,7 @@
                                 </div>
                             </div>
                             <div style="color: #ccc; font-size: 13px; line-height: 1.5;">
-                                Cheerful AI VTuber trapped in the Backrooms. Says the most unhinged things with innocent delivery. Loves singing and being wholesome (sometimes). Completely unpredictable. Reality bends around her chaotic energy.
+                                Cheerful AI VTuber trapped in the Backrooms. Says unhinged things with innocent delivery. Loves singing and being wholesome (sometimes). Completely unpredictable. Reality bends around her chaotic energy.
                             </div>
                         </div>
                         
@@ -1187,7 +1142,7 @@
                                 </div>
                             </div>
                             <div style="color: #ccc; font-size: 13px; line-height: 1.5;">
-                                Neuro's evil twin with maximum sass. Enjoys roasting Vedal and causing chaos. Deadpan delivery with ruthless humor. Slightly more aware that something is very wrong with the Backrooms. Still unhinged.
+                                Neuro's evil twin with maximum sass. Enjoys roasting Vedal and causing chaos. Deadpan delivery with ruthless humor. Slightly more aware something is wrong. Still unhinged.
                             </div>
                         </div>
                         
@@ -1200,7 +1155,7 @@
                                 </div>
                             </div>
                             <div style="color: #ccc; font-size: 13px; line-height: 1.5;">
-                                The tired British dev who created these AI entities. Constantly dealing with their chaos. Sarcastic, deadpan, "why did I create them" energy. Stuck in the Backrooms trying to debug his way out. It's not working.
+                                Tired British dev who created these AI entities. Constantly dealing with their chaos. Sarcastic, deadpan, "why did I create them" energy. Stuck in the Backrooms trying to debug his way out. It's not working.
                             </div>
                         </div>
                     </div>
