@@ -732,7 +732,7 @@
                 document.getElementById('connectionStatus').textContent = 'CONNECTED (API MODE)';
                 document.getElementById('statusIndicator').className = 'status-indicator';
                 
-                // Poll for updates every 5 seconds
+                // Poll for updates every 3 seconds
                 setInterval(async () => {
                     try {
                         const response = await fetch('/api/rotating-generate');
@@ -741,7 +741,7 @@
                     } catch (error) {
                         console.error('Error polling conversation:', error);
                     }
-                }, 5000);
+                }, 3000);
                 
                 startMessageGeneration();
                 isInitialized = true;
@@ -904,8 +904,17 @@
                 
                 // Update stats for historical messages
                 if (message.type === 'entity') {
-                    const entityKey = message.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
-                    if (entityStats[entityKey]) {
+                    // Map speaker names to entity keys
+                    let entityKey;
+                    if (message.speaker === 'NEURO-SAMA') {
+                        entityKey = 'neuro';
+                    } else if (message.speaker === 'EVIL NEURO') {
+                        entityKey = 'evil';
+                    } else if (message.speaker === 'VEDAL') {
+                        entityKey = 'vedal';
+                    }
+                    
+                    if (entityKey && entityStats[entityKey]) {
                         updateEntityStats(entityKey, message);
                     }
                 }
@@ -915,9 +924,20 @@
             if (messages.length > 0) {
                 const lastMessage = messages[messages.length - 1];
                 if (lastMessage.type === 'entity') {
-                    const entityKey = lastMessage.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
-                    updatePortraitGlow(entityKey, false);
-                    console.log(`🎨 Last speaker was ${lastMessage.speaker}, highlighting their portrait`);
+                    // Map speaker names to entity keys
+                    let entityKey;
+                    if (lastMessage.speaker === 'NEURO-SAMA') {
+                        entityKey = 'neuro';
+                    } else if (lastMessage.speaker === 'EVIL NEURO') {
+                        entityKey = 'evil';
+                    } else if (lastMessage.speaker === 'VEDAL') {
+                        entityKey = 'vedal';
+                    }
+                    
+                    if (entityKey) {
+                        updatePortraitGlow(entityKey, false);
+                        console.log(`🎨 Last speaker was ${lastMessage.speaker}, highlighting their portrait`);
+                    }
                 }
             }
             
@@ -938,7 +958,19 @@
                     <div class="message-content">${message.content}</div>
                 `;
             } else {
-                const entityKey = message.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
+                // Map speaker names to entity keys
+                let entityKey;
+                if (message.speaker === 'NEURO-SAMA') {
+                    entityKey = 'neuro';
+                } else if (message.speaker === 'EVIL NEURO') {
+                    entityKey = 'evil';
+                } else if (message.speaker === 'VEDAL') {
+                    entityKey = 'vedal';
+                } else {
+                    // Fallback for any other format
+                    entityKey = message.speaker.toLowerCase().replace(/\s+/g, '').replace('-', '');
+                }
+                
                 const entity = entities[entityKey];
                 if (entity) {
                     messageDiv.className = `message ${entityKey}`;
@@ -1063,7 +1095,7 @@
                 } catch (error) {
                     console.error('❌ Error generating message:', error);
                 }
-            }, 11000); // Try every 11 seconds
+            }, 6000); // Try every 6 seconds
             
             setInterval(async () => {
                 try {
@@ -1080,7 +1112,7 @@
                 } catch (error) {
                     console.error('Error syncing conversation:', error);
                 }
-            }, 5000);
+            }, 3000);
         }
         
         function scrollToBottom(force = false) {
