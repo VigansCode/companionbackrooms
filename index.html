@@ -789,14 +789,6 @@
             const realityElement = document.getElementById('realityIntegrity');
             realityElement.textContent = `REALITY INTEGRITY: ${integrity}%`;
             realityElement.className = integrity < 60 ? 'error' : 'warning';
-            
-            // Remove welcome message if we have messages
-            if (data.messages?.length > 0) {
-                const welcomeMsg = document.getElementById('welcomeMessage');
-                if (welcomeMsg) {
-                    welcomeMsg.remove();
-                }
-            }
         }
         
         function updateEntityStats(entityKey, message) {
@@ -888,34 +880,34 @@
         function renderMessages(messages) {
             const messagesArea = document.getElementById('messagesArea');
             
-            // Clear existing messages except welcome
+            // Get currently rendered message IDs
             const existingMessages = messagesArea.querySelectorAll('.message');
-            existingMessages.forEach(msg => msg.remove());
+            const existingIds = new Set();
+            existingMessages.forEach(msg => {
+                const id = msg.getAttribute('data-message-id');
+                if (id) existingIds.add(id);
+            });
             
-            // Reset stats when loading conversation history
-            entityStats = {
-                neuro: { messageCount: 0, songCount: 0, lastActive: null },
-                evil: { messageCount: 0, roastCount: 0, lastActive: null },
-                vedal: { messageCount: 0, sighCount: 0, lastActive: null }
-            };
-            
-            messages.forEach((message, index) => {
-                addMessageToUI(message);
-                
-                // Update stats for historical messages
-                if (message.type === 'entity') {
-                    // Map speaker names to entity keys
-                    let entityKey;
-                    if (message.speaker === 'NEURO-SAMA') {
-                        entityKey = 'neuro';
-                    } else if (message.speaker === 'EVIL NEURO') {
-                        entityKey = 'evil';
-                    } else if (message.speaker === 'VEDAL') {
-                        entityKey = 'vedal';
-                    }
+            // Only add messages that aren't already rendered
+            messages.forEach((message) => {
+                if (!message.id || !existingIds.has(message.id)) {
+                    addMessageToUI(message);
                     
-                    if (entityKey && entityStats[entityKey]) {
-                        updateEntityStats(entityKey, message);
+                    // Update stats for new messages
+                    if (message.type === 'entity') {
+                        // Map speaker names to entity keys
+                        let entityKey;
+                        if (message.speaker === 'NEURO-SAMA') {
+                            entityKey = 'neuro';
+                        } else if (message.speaker === 'EVIL NEURO') {
+                            entityKey = 'evil';
+                        } else if (message.speaker === 'VEDAL') {
+                            entityKey = 'vedal';
+                        }
+                        
+                        if (entityKey && entityStats[entityKey]) {
+                            updateEntityStats(entityKey, message);
+                        }
                     }
                 }
             });
@@ -941,12 +933,23 @@
                 }
             }
             
-            // NO SCROLL HERE - Let user read in peace
+            // Remove welcome message if we have messages
+            if (messages.length > 0) {
+                const welcomeMsg = document.getElementById('welcomeMessage');
+                if (welcomeMsg) {
+                    welcomeMsg.remove();
+                }
+            }
         }
         
         function addMessageToUI(message) {
             const messagesArea = document.getElementById('messagesArea');
             const messageDiv = document.createElement('div');
+            
+            // Add message ID for tracking
+            if (message.id) {
+                messageDiv.setAttribute('data-message-id', message.id);
+            }
             
             if (message.type === 'system') {
                 messageDiv.className = 'message system';
@@ -984,6 +987,9 @@
                         </div>
                         <div class="message-content">${formatMessageContent(message.content)}</div>
                     `;
+                } else {
+                    console.error(`❌ No entity found for key: ${entityKey}, speaker: ${message.speaker}`);
+                    return; // Don't add the message if we can't map it
                 }
             }
             
@@ -1086,7 +1092,29 @@
                     
                     if (response.ok && data.message) {
                         console.log(`✅ New message from ${data.message.speaker}:`, data.message.content.substring(0, 50) + '...');
+                        
+                        // Add message to UI
                         addMessageToUI(data.message);
+                        
+                        // Update stats for the new message
+                        let entityKey;
+                        if (data.message.speaker === 'NEURO-SAMA') {
+                            entityKey = 'neuro';
+                        } else if (data.message.speaker === 'EVIL NEURO') {
+                            entityKey = 'evil';
+                        } else if (data.message.speaker === 'VEDAL') {
+                            entityKey = 'vedal';
+                        }
+                        
+                        if (entityKey && entityStats[entityKey]) {
+                            updateEntityStats(entityKey, data.message);
+                        }
+                        
+                        // Update portrait glow
+                        if (entityKey) {
+                            updatePortraitGlow(entityKey, false);
+                        }
+                        
                         scrollToBottom(); // Smart scroll - only if user is at bottom
                         
                     } else {
@@ -1096,23 +1124,6 @@
                     console.error('❌ Error generating message:', error);
                 }
             }, 6000); // Try every 6 seconds
-            
-            setInterval(async () => {
-                try {
-                    const response = await fetch('/api/rotating-generate');
-                    const data = await response.json();
-                    
-                    if (response.ok && data.messages) {
-                        const currentMessageCount = document.querySelectorAll('.message').length;
-                        if (data.messages.length > currentMessageCount) {
-                            console.log('🔥 New messages detected, updating UI...');
-                            renderMessages(data.messages);
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error syncing conversation:', error);
-                }
-            }, 3000);
         }
         
         function scrollToBottom(force = false) {
