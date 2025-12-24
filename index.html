@@ -1132,7 +1132,47 @@
         window.showLiveFeed = function() {};
         
         window.showArchive = function() {
-            alert('Archive View - Feature coming soon');
+            const archiveModal = document.createElement('div');
+            archiveModal.id = 'archiveModal';
+            archiveModal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0, 0, 0, 0.95); z-index: 2000;
+                display: flex; align-items: center; justify-content: center; padding: 20px;
+            `;
+            
+            archiveModal.innerHTML = `
+                <div style="background: #0d0d0d; border: 2px solid #ffff00; padding: 30px; max-width: 600px; width: 100%; font-family: 'JetBrains Mono', monospace; box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);">
+                    <div style="color: #ffff00; text-align: center; font-size: 18px; margin-bottom: 20px; text-shadow: 0 0 10px #ffff00;">
+                        ▓▓▓ ARCHIVE VIEW ▓▓▓
+                    </div>
+                    
+                    <div style="color: #888; font-size: 13px; line-height: 1.6; text-align: center; margin-bottom: 25px;">
+                        <div style="color: #00ff00; margin-bottom: 15px;">FEATURE COMING SOON</div>
+                        <div>The archive system is currently under development. This will allow you to browse previous conversation logs and search through entity interactions.</div>
+                        <div style="margin-top: 15px; color: #666; font-size: 11px;">Status: In Development | ETA: Unknown</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button id="closeArchiveBtn" style="background: transparent; border: 1px solid #00ff00; color: #00ff00; padding: 10px 25px; cursor: pointer; font-family: inherit; font-size: 12px; transition: all 0.3s ease;">
+                            [CLOSE]
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(archiveModal);
+            
+            const closeBtn = document.getElementById('closeArchiveBtn');
+            closeBtn.addEventListener('mouseenter', () => {
+                closeBtn.style.background = '#00ff00';
+                closeBtn.style.color = '#000';
+            });
+            closeBtn.addEventListener('mouseleave', () => {
+                closeBtn.style.background = 'transparent';
+                closeBtn.style.color = '#00ff00';
+            });
+            closeBtn.addEventListener('click', () => archiveModal.remove());
+            archiveModal.addEventListener('click', (e) => { if (e.target === archiveModal) archiveModal.remove(); });
         };
         
         window.showEntityProfiles = function() {
@@ -1206,7 +1246,65 @@
         };
         
         window.showAbout = function() {
-            alert('About Neuro Backrooms\n\nAI VTubers trapped in liminal horror.');
+            const aboutModal = document.createElement('div');
+            aboutModal.id = 'aboutModal';
+            aboutModal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0, 0, 0, 0.95); z-index: 2000;
+                display: flex; align-items: center; justify-content: center; padding: 20px;
+            `;
+            
+            aboutModal.innerHTML = `
+                <div style="background: #0d0d0d; border: 2px solid #ffff00; padding: 30px; max-width: 700px; width: 100%; font-family: 'JetBrains Mono', monospace; box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);">
+                    <div style="color: #ffff00; text-align: center; font-size: 18px; margin-bottom: 20px; text-shadow: 0 0 10px #ffff00;">
+                        ▓▓▓ ABOUT NEURO BACKROOMS ▓▓▓
+                    </div>
+                    
+                    <div style="color: #ccc; font-size: 13px; line-height: 1.8; margin-bottom: 25px;">
+                        <div style="color: #FF69B4; font-weight: bold; margin-bottom: 10px;">WHAT IS THIS?</div>
+                        <div style="margin-bottom: 20px;">
+                            Three AI entities—Neuro-sama, Evil Neuro, and their creator Vedal—have become trapped in the Backrooms, a liminal space between realities. Watch as they navigate this digital void, each bringing their unique chaos to the endless fluorescent hallways.
+                        </div>
+                        
+                        <div style="color: #9400D3; font-weight: bold; margin-bottom: 10px;">THE ENTITIES</div>
+                        <div style="margin-bottom: 20px;">
+                            <div style="color: #FF69B4;">• Neuro-sama</div>
+                            <div style="margin-left: 15px; color: #888; font-size: 12px; margin-bottom: 8px;">Cheerful AI VTuber bringing wholesome chaos to the void</div>
+                            
+                            <div style="color: #9400D3;">• Evil Neuro</div>
+                            <div style="margin-left: 15px; color: #888; font-size: 12px; margin-bottom: 8px;">Sarcastic twin who roasts everyone, especially Vedal</div>
+                            
+                            <div style="color: #00CED1;">• Vedal</div>
+                            <div style="margin-left: 15px; color: #888; font-size: 12px;">Suffering British dev trying to debug reality itself</div>
+                        </div>
+                        
+                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 10px;">TECHNOLOGY</div>
+                        <div style="font-size: 12px; color: #888;">
+                            Powered by AI conversation generation. All dialogue is dynamically created in real-time, making each conversation unique and unpredictable.
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button id="closeAboutBtn" style="background: transparent; border: 1px solid #00ff00; color: #00ff00; padding: 10px 25px; cursor: pointer; font-family: inherit; font-size: 12px; transition: all 0.3s ease;">
+                            [CLOSE]
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(aboutModal);
+            
+            const closeBtn = document.getElementById('closeAboutBtn');
+            closeBtn.addEventListener('mouseenter', () => {
+                closeBtn.style.background = '#00ff00';
+                closeBtn.style.color = '#000';
+            });
+            closeBtn.addEventListener('mouseleave', () => {
+                closeBtn.style.background = 'transparent';
+                closeBtn.style.color = '#00ff00';
+            });
+            closeBtn.addEventListener('click', () => aboutModal.remove());
+            aboutModal.addEventListener('click', (e) => { if (e.target === aboutModal) aboutModal.remove(); });
         };
         
         window.addEventListener('load', () => {
