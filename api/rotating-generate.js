@@ -50,12 +50,12 @@ export default async function handler(req, res) {
       const now = Date.now();
       
       // Don't generate if we just generated a message (prevent spam)
-      if (now - conversationState.lastMessageTime < 8000) {
+      if (now - conversationState.lastMessageTime < 4000) {
         console.log('Too soon, cooldown active');
         return res.status(200).json({ 
           message: 'Too soon', 
           nextSpeaker: entities[conversationState.currentSpeakerIndex],
-          timeUntilNext: 8000 - (now - conversationState.lastMessageTime)
+          timeUntilNext: 4000 - (now - conversationState.lastMessageTime)
         });
       }
 
@@ -163,6 +163,8 @@ Continue the conversation naturally as ${entity.name}. ${context ? 'Reference wh
 
       const content = data.choices[0].message.content;
       console.log('Generated content:', content.substring(0, 100) + '...');
+      console.log('Speaker name:', entity.name);
+      console.log('Entity key:', currentEntity);
       
       // Add message to conversation
       const newMessage = {
