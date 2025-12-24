@@ -988,6 +988,9 @@
         }
         
         function formatMessageContent(content) {
+            // Remove asterisk-based actions/emotes
+            content = content.replace(/\*[^*]+\*/g, '');
+            
             // Detect and format ASCII art
             const lines = content.split('\n');
             let inAsciiBlock = false;
